@@ -25,6 +25,7 @@ socket.on(‘pushState’, function() { socket.disconnect(); } );
 } );
 
 setTimeout(function() { socket.disconnect(); }, 3000);```
+
 Change volume: Takes one argument (i.e., run with "node "). A number sets the volume to that number, “+” and “-” increase or decrease the volume by 5%, “mute” toggles mute on/off.
 
 ```var io = require(‘socket.io-client’);
