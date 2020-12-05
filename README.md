@@ -8,7 +8,7 @@ These are Node.js scripts intended to be run from the command line, so we need t
 
 Toggle play/pause: If the current mode is “play”, it pauses, otherwise it plays.
 
-[code]var io = require(‘socket.io-client’);
+`var io = require(‘socket.io-client’);
 var socket = io.connect(‘http://localhost:3000’);
 socket.emit(‘getState’, ‘’);
 socket.on(‘pushState’, function(data) {
@@ -24,11 +24,10 @@ socket.removeAllListeners(‘pushState’);
 socket.on(‘pushState’, function() { socket.disconnect(); } );
 } );
 
-setTimeout(function() { socket.disconnect(); }, 3000);[/code]
-
+setTimeout(function() { socket.disconnect(); }, 3000);`
 Change volume: Takes one argument (i.e., run with "node "). A number sets the volume to that number, “+” and “-” increase or decrease the volume by 5%, “mute” toggles mute on/off.
 
-[code]var io = require(‘socket.io-client’);
+`var io = require(‘socket.io-client’);
 var socket = io.connect(‘http://localhost:3000’);
 socket.emit(‘getState’, ‘’);
 socket.on(‘pushState’, function(data) {
@@ -55,11 +54,11 @@ socket.emit(‘volume’, Math.max(Math.min(Number(process.argv[2]), 100), 0));
 process.exit();
 } );
 
-setTimeout(function() { socket.disconnect(); }, 3000);[/code]
+setTimeout(function() { socket.disconnect(); }, 3000);`
 
 Play custom webradio: Clears the playlist and plays the radio given as the argument
 
-[code]var io = require(‘socket.io-client’);
+`var io = require(‘socket.io-client’);
 var socket = io.connect(‘http://localhost:3000’);
 socket.emit(‘clearQueue’);
 var fs = require(‘fs’);
@@ -73,11 +72,11 @@ socket.emit(‘addPlay’, {‘service’:radio.service,‘title’:radio.name,�
 socket.on(‘pushState’, function() { socket.disconnect(); } );
 }
 
-setTimeout(function() { socket.disconnect(); }, 3000);[/code]
+setTimeout(function() { socket.disconnect(); }, 3000);`
 
 Queue a random album: Clears the playlist and puts a random album from the library. (I use random.org to provide random numbers, use your own apiKey. It could be easily adapted to use a local random number generator.)
 
-[code]var RandomOrg = require(‘random-org’);
+`var RandomOrg = require(‘random-org’);
 var io = require(‘socket.io-client’);
 var random = new RandomOrg({‘apiKey’:’#########################’});
 var socket = io.connect(‘http://localhost:3000’);
@@ -94,6 +93,11 @@ socket.emit(‘addToQueue’, {‘uri’:select.uri});
 );
 socket.on(‘pushQueue’, function(data) { if (data.length > 0) { socket.disconnect(); } } );
 
-setTimeout(function() { socket.disconnect(); }, 5000);[/code]
+setTimeout(function() { socket.disconnect(); }, 5000);`
 
 Once I have these scripts I can assign them to the remote buttons in .lircrc
+
+On a vanilla volumio installation, you need the npm package socket.io-client. You can easily install that package with:
+
+npm install socket.io-client
+Thanks for the scripts.
